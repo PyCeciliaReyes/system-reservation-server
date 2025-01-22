@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import db from './config/database.js';
 import personaRoutes from './persona/persona.routes.js';
 import habitacionRoutes from './habitacion/habitacion.routes.js';
+import reservaRoutes from './reserva/reserva.routes.js';
 
 dotenv.config();
 
@@ -12,12 +13,13 @@ app.use(bodyParser.json());
 
 // Verificar la conexión con la base de datos
 db.authenticate()
-  .then(() => console.log('Conexión a la base de datos exitosa'))
+  .then(() => console.log('Conexion a la base de datos exitosa'))
   .catch((err) => console.error('Error al conectar a la base de datos:', err));
 
 // Punto de entrada para las rutas
 app.use('/api/persona', personaRoutes);
 app.use('/api/habitacion', habitacionRoutes);
+app.use('/api/reserva', reservaRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
