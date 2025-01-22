@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import db from './config/database.js';
 import personaRoutes from './persona/persona.routes.js';
+import habitacionRoutes from './habitacion/habitacion.routes.js';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ db.authenticate()
 
 // Punto de entrada para las rutas
 app.use('/api/persona', personaRoutes);
+app.use('/api/habitacion', habitacionRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
