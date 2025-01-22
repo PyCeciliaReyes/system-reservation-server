@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import db from './config/database.js';
 import personaRoutes from './persona/persona.routes.js';
 import habitacionRoutes from './habitacion/habitacion.routes.js';
@@ -11,7 +12,13 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 
-// Verificar la conexión con la base de datos
+// Configurar CORS
+app.use(cors({
+  origin: 'http://localhost:5173', // Reemplaza con la URL del frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Metodos permitidos
+}));
+
+// Verificar la conexion con la base de datos
 db.authenticate()
   .then(() => console.log('Conexion a la base de datos exitosa'))
   .catch((err) => console.error('Error al conectar a la base de datos:', err));
