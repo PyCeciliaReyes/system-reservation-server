@@ -36,7 +36,7 @@ export const validateReserva = [
     .custom(async (value, { req }) => {
       const habitacion = await Habitacion.findByPk(value);
       if (!habitacion) {
-        throw new Error('La habitación no existe');
+        throw new Error('La habitacion no existe');
       }
       const reservas = await Reserva.findAll({
         where: {
@@ -46,7 +46,7 @@ export const validateReserva = [
         },
       });
       if (reservas.length > 0) {
-        throw new Error('La habitación no esta disponible en las fechas solicitadas');
+        throw new Error('La habitacion no esta disponible en las fechas solicitadas');
       }
       return true;
     }),

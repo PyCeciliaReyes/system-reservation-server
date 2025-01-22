@@ -69,7 +69,7 @@ Antes de comenzar, asegurarse de tener instalados:
 
 ## 🌐 Enlace Activo
 
-El proyecto está desplegado y accesible en el siguiente enlace:
+El proyecto esta desplegado y accesible en el siguiente enlace:
 
 🔗 **[Sistema de Reserva en Render](https://system-reservation-server.onrender.com)**
 

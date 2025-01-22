@@ -16,13 +16,13 @@ export const createHabitacion = async (req, res) => {
     const habitacion = await Habitacion.create(req.body);
     res.status(201).json({
       status: 'success',
-      message: 'Habitación creada exitosamente',
+      message: 'Habitacion creada exitosamente',
       data: habitacion,
     });
   } catch (error) {
     res.status(500).json({
       status: 'error',
-      message: 'Error al crear la habitación',
+      message: 'Error al crear la habitacion',
       error: error.message,
     });
   }
@@ -46,7 +46,7 @@ export const getAllHabitaciones = async (req, res) => {
   }
 };
 
-// Obtener habitación por ID
+// Obtener habitacion por ID
 export const getHabitacionById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -65,13 +65,13 @@ export const getHabitacionById = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       status: 'error',
-      message: 'Error al obtener la habitación',
+      message: 'Error al obtener la habitacion',
       error: error.message,
     });
   }
 };
 
-// Actualizar una habitación
+// Actualizar una habitacion
 export const updateHabitacion = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -88,25 +88,25 @@ export const updateHabitacion = async (req, res) => {
     if (!habitacion) {
       return res.status(404).json({
         status: 'error',
-        message: `Habitación no encontrada con ID ${id}`,
+        message: `Habitacion no encontrada con ID ${id}`,
       });
     }
     await habitacion.update(req.body);
     res.status(200).json({
       status: 'success',
-      message: `Habitación con ID ${id} actualizada exitosamente`,
+      message: `Habitacion con ID ${id} actualizada exitosamente`,
       data: habitacion,
     });
   } catch (error) {
     res.status(500).json({
       status: 'error',
-      message: 'Error al actualizar la habitación',
+      message: 'Error al actualizar la habitacion',
       error: error.message,
     });
   }
 };
 
-// Eliminar una habitación
+// Eliminar una habitacion
 export const deleteHabitacion = async (req, res) => {
   try {
     const { id } = req.params;
@@ -114,18 +114,18 @@ export const deleteHabitacion = async (req, res) => {
     if (!habitacion) {
       return res.status(404).json({
         status: 'error',
-        message: `Habitación no encontrada con ID ${id}`,
+        message: `Habitacion no encontrada con ID ${id}`,
       });
     }
     await habitacion.destroy();
     res.status(200).json({
       status: 'success',
-      message: `Habitación con ID ${id} eliminada exitosamente`,
+      message: `Habitacion con ID ${id} eliminada exitosamente`,
     });
   } catch (error) {
     res.status(500).json({
       status: 'error',
-      message: 'Error al eliminar la habitación',
+      message: 'Error al eliminar la habitacion',
       error: error.message,
     });
   }
