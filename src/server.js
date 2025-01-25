@@ -41,7 +41,7 @@ db.authenticate()
 // Punto de entrada para las rutas
 app.use('/api/persona', basicAuth, personaRoutes);
 app.use('/api/habitacion', basicAuth, habitacionRoutes);
-app.use('/api/reserva', basic, reservaRoutes);
+app.use('/api/reserva', basicAuth, reservaRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
