@@ -13,11 +13,25 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 
-// Configurar CORS
-app.use(cors({
-  origin: 'http://localhost:5173', // Reemplaza con la URL del frontend
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Metodos permitidos
-}));
+const allowedOrigins = [
+  'https://systema-reservation.netlify.app', // Producción
+  'http://localhost:5173',                   // Desarrollo
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Si el origen está en la lista de permitidos o no existe (para herramientas como Postman)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  credentials: true, // Permitir cookies si es necesario
+};
+
+app.use(cors(corsOptions));
 
 // Verificar la conexion con la base de datos
 db.authenticate()
@@ -27,7 +41,7 @@ db.authenticate()
 // Punto de entrada para las rutas
 app.use('/api/persona', basicAuth, personaRoutes);
 app.use('/api/habitacion', basicAuth, habitacionRoutes);
-app.use('/api/reserva', basicAuth, reservaRoutes);
+app.use('/api/reserva', basic, reservaRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
