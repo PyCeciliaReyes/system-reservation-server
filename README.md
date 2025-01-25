@@ -35,6 +35,8 @@ El objetivo principal de este proyecto es gestionar un sistema de reservas senci
 ├── /src
 │   ├── /config          # Configuracion (conexion con la base de datos)
 │   │   └── database.js  # Configuracion de Sequelize y conexion MySQL
+│   ├── /middleware      # Middlewares compartidos
+│   │   ├── basicAuth.js # Middleware para autenticacion basica
 │   ├── /persona         # CRUD para personas
 │   │   ├── persona.model.js       # Modelo de la tabla persona
 │   │   ├── persona.controller.js  # Logica del CRUD
@@ -50,12 +52,12 @@ El objetivo principal de este proyecto es gestionar un sistema de reservas senci
 │   │   ├── reserva.controller.js  # Logica del CRUD
 │   │   ├── reserva.routes.js      # Definicion de las rutas para reserva
 │   │   └── reserva.validation.js  # Validaciones específicas para reserva
-│   |
 │   └── server.js        # Punto de entrada del servidor
-├── .env                 # Variables de entorno (no se sube al repositorio)
+├── .env.template        # Variables de entorno a tener en cuenta
 ├── package.json         # Dependencias del proyecto
 ├── README.md            # Documentación del proyecto
 └── .gitignore           # Archivos y directorios a ignorar en Git
+
 ```
 ---
 

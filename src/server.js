@@ -14,7 +14,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const allowedOrigins = [
-  'https://systema-reservation.netlify.app', // Producción
+  'https://systema-reservation.netlify.app', // Produccion
   'http://localhost:5173',                   // Desarrollo
 ];
 
@@ -27,7 +27,7 @@ const corsOptions = {
       callback(new Error('No permitido por CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Metodos permitidos
   credentials: true, // Permitir cookies si es necesario
 };
 
