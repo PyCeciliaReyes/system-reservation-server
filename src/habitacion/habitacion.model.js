@@ -42,6 +42,12 @@ const Habitacion = db.define('Habitacion', {
 }, {
   tableName: 'habitacion',
   timestamps: false,
+  indexes: [
+    {
+      unique: true,
+      fields: ['habitacionpiso', 'habitacionnro'],
+    },
+  ],
 });
 
 export default Habitacion;

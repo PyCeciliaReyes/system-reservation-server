@@ -23,6 +23,13 @@ export const createPersona = async (req, res) => {
       data: newPersona,
     });
   } catch (error) {
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return res.status(400).json({
+        status: 'error',
+        message: 'el numero de documento o correo ya estan registrados',
+        errors: error.errors.map((err) => err.message),
+      })
+    }
     res.status(500).json({
         status: 'error',
         message: 'Error al crear la persona',

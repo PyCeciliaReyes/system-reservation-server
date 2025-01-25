@@ -3,17 +3,30 @@ import Habitacion from './habitacion.model.js';
 
 // Crear una nueva habitacion
 export const createHabitacion = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({
-      status: 'error',
-      message: 'Error en los datos enviados',
-      errors: errors.array(),
-    });
-  }
-
   try {
-    const habitacion = await Habitacion.create(req.body);
+    const { habitacionpiso, habitacionnro, cantcamas, tienetelevision, tienefrigobar } = req.body;
+
+    // verifica la existencia de la habitacion y combinacion de piso y nro
+    const existingHabitacion = await Habitacion.findOne({
+      where: { habitacionpiso, habitacionnro },
+    });
+
+    if (existingHabitacion) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'La combinacion de piso y nro  ya existe',
+      });
+    }
+
+    // Crear la habitación
+    const habitacion = await Habitacion.create({
+      habitacionpiso,
+      habitacionnro,
+      cantcamas,
+      tienetelevision,
+      tienefrigobar,
+    });
+
     res.status(201).json({
       status: 'success',
       message: 'Habitacion creada exitosamente',
