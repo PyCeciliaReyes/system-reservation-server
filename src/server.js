@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import db from './config/database.js';
+import { basicAuth } from './middleware/basic.Auth.js';
 import personaRoutes from './persona/persona.routes.js';
 import habitacionRoutes from './habitacion/habitacion.routes.js';
 import reservaRoutes from './reserva/reserva.routes.js';
@@ -24,9 +25,9 @@ db.authenticate()
   .catch((err) => console.error('Error al conectar a la base de datos:', err));
 
 // Punto de entrada para las rutas
-app.use('/api/persona', personaRoutes);
-app.use('/api/habitacion', habitacionRoutes);
-app.use('/api/reserva', reservaRoutes);
+app.use('/api/persona', basicAuth, personaRoutes);
+app.use('/api/habitacion', basicAuth, habitacionRoutes);
+app.use('/api/reserva', basicAuth, reservaRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
