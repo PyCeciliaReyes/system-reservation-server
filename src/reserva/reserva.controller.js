@@ -1,4 +1,5 @@
 import { validationResult } from 'express-validator';
+import { differenceInDays, isAfter, isValid, parseISO } from 'date-fns';
 import Reserva from './reserva.model.js';
 import Habitacion from '../habitacion/habitacion.model.js';
 import Persona from '../persona/persona.model.js';
@@ -172,4 +173,54 @@ export const deleteReserva = async (req, res) => {
         error: error.message,
         });
     }
+};
+
+export const calcularMonto = (req, res) => {
+  try {
+    const { fechaentrada, fechasalida } = req.query;
+
+    // Validar que las fechas existan
+    if (!fechaentrada || !fechasalida) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Ambas fechas (fechaentrada y fechasalida) son obligatorias',
+      });
+    }
+
+    // Parsear las fechas
+    const entrada = parseISO(fechaentrada);
+    const salida = parseISO(fechasalida);
+
+    // Validar formato y secuencia de fechas
+    if (!isValid(entrada) || !isValid(salida)) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Las fechas deben ser válidas en formato YYYY-MM-DD',
+      });
+    }
+
+    if (!isAfter(salida, entrada)) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'La fecha de salida debe ser posterior a la fecha de entrada',
+      });
+    }
+
+    // Calcular el monto
+    const dias = differenceInDays(salida, entrada);
+    const monto = dias * 120000;
+
+    // Devolver el monto calculado
+    res.status(200).json({
+      status: 'success',
+      message: 'Monto calculado exitosamente',
+      data: { dias, monto },
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      message: 'Error al calcular el monto',
+      error: error.message,
+    });
+  }
 };
