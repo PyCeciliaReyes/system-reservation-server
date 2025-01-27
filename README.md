@@ -165,3 +165,7 @@ Para probar las APIs en vivo, utiliza el siguiente enlace como base URL:
     ```
 
     - **DELETE /api/reserva/:id**: Eliminar una reserva especifica por su ID.
+
+## Postman Collection
+
+Este proyecto incluye una colección de Postman para probar los endpoints de la API, la misma esta en el archivo "system reservation.postman_collection.json" que se encuentra en la raiz del proyecto
